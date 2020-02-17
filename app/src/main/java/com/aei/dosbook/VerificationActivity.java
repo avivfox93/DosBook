@@ -165,6 +165,8 @@ public class VerificationActivity extends AppCompatActivity implements
             Log.e("JSON",result.toString());
             try {
                 MyUserProfile myUserProfile = new Gson().fromJson(result.getString("user"),MyUserProfile.class);
+                Verification.setToken(myUserProfile.getUuid());
+                Verification.saveToken();
                 MyApp.setMyUserProfile(myUserProfile);
             }catch (JSONException e){
                 e.printStackTrace();
