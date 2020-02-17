@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".RegistrationActivity">
+
+    <TextView
+        android:id="@+id/register_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:padding="40dp"
+        android:fontFamily="@font/sea_gardens"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:background="@color/colorPrimaryDark"
+        android:text="Register"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/register_title">
+        <LinearLayout
+            android:gravity="center"
+            android:paddingTop="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <EditText
+                android:id="@+id/register_fname_in"
+                android:inputType="textPersonName"
+                android:layout_marginBottom="20dp"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:hint="First Name"
+                android:textSize="25sp"/>
+            <EditText
+                android:id="@+id/register_lname_in"
+                android:inputType="textPersonName"
+                android:layout_marginBottom="20dp"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:hint="Last Name"
+                android:textSize="25sp"/>
+            <EditText
+                android:id="@+id/register_dob_in"
+                android:layout_marginBottom="20dp"
+                android:layout_width="250dp"
+                android:layout_height="match_parent"
+                android:hint="DOB"
+                android:clickable="true"
+                android:inputType="date"
+                android:textSize="25sp"/>
+            <Spinner
+                android:id="@+id/register_gender_spinner"
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                />
+            <Button
+                android:id="@+id/register_profile_btn"
+                android:layout_marginBottom="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:text="Choose Profile"/>
+            <Button
+                android:id="@+id/register_register_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="25sp"
+                android:text="Register"/>
+            <ImageView
+                android:id="@+id/register_profile_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/ic_launcher"/>
+        </LinearLayout>
+    </ScrollView>
+
+
+</RelativeLayout>

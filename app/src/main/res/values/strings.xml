@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">DosBook</string>
+    <string name="code_verify_instructions">Please enter the 6 Digits code\n that you received via SMS</string>
+    <string name="reCAPTCHA_site_code">6LflhtEUAAAAAFUG1eoQEUriClslISfY5rNM5gxN</string>
+    <string name="title_home">Home</string>
+    <string name="title_feed">Feed</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="whats_on_your_mind">whats on your mind?</string>
+</resources>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context=".PhoneVerificationFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/code_verify_instructions"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:paddingBottom="30dp"
+            android:layout_above="@id/verifacation_code_input"/>
+
+        <EditText
+            android:id="@+id/verifacation_code_input"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:maxLength="6"
+            android:inputType="phone"
+            android:hint="Code"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:id="@+id/verifacation_code_ok_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorAccent"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="25dp"
+            android:text="Send"
+            android:layout_below="@id/verifacation_code_input"/>
+
+    </RelativeLayout>
+
+</FrameLayout>
