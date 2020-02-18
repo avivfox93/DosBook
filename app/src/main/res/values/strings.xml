@@ -6,4 +6,5 @@
     <string name="title_feed">Feed</string>
     <string name="title_notifications">Notifications</string>
     <string name="whats_on_your_mind">whats on your mind?</string>
+    <string name="show_opposite_genders">Show Opposite Genders</string>
 </resources>

@@ -48,6 +48,10 @@ public class ProfileAdapter extends ArrayAdapter<UserProfile> {
 
         UserProfile currentProfile = profileList.get(position);
 
+        if(!MyApp.getMyUserProfile().isShowOppositeGender() && currentProfile.getGender() != MyApp.getMyUserProfile().getGender()){
+            listItem.setVisibility(View.GONE);
+            return listItem;
+        }
         ImageView profileImage = listItem.findViewById(R.id.profile_item_pic);
 
         RequestBuilder<Drawable> requestBuilder = MyApp.getRequestManager()

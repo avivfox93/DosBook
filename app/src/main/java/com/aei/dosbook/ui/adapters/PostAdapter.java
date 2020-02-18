@@ -81,9 +81,11 @@ public class PostAdapter extends ArrayAdapter<Post> {
         View listItem = convertView;
         if(listItem == null)
             listItem = LayoutInflater.from(cntx).inflate(R.layout.post_item,parent,false);
-
         Post currentPost = postList.get(position);
-
+        if(!MyApp.getMyUserProfile().isShowOppositeGender() && currentPost.getUserProfile().getGender() != MyApp.getMyUserProfile().getGender()){
+            listItem.setVisibility(View.GONE);
+            return listItem;
+        }
         ImageView image = listItem.findViewById(R.id.post_pic);
         ImageView profileImage = listItem.findViewById(R.id.post_profile_pic);
         profileImage.setOnClickListener(e->profileCallback.onClick(currentPost.getUserProfile()));
@@ -91,6 +93,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
             RequestBuilder requestBuilder = MyApp.getRequestManager()
                     .load(Database.getPhotoURL(currentPost.getPictures().get(0).getUrl()));
             requestBuilder.into(image);
+            image.setVisibility(View.VISIBLE);
         }else
             image.setVisibility(View.GONE);
         RequestBuilder<Drawable> requestBuilder = MyApp.getRequestManager()

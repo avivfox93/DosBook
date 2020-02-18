@@ -10,6 +10,7 @@ public class MyUserProfile extends UserProfile {
     private String uid;
     private List<Gender> gendersToShow = Gender.getList();
     private Settings settings = new Settings();
+    private boolean showOppositeGender = true;
 
 
     private String token;
@@ -69,6 +70,14 @@ public class MyUserProfile extends UserProfile {
     }
 
     public Settings getSettings(){return settings;}
+
+    public boolean isShowOppositeGender() {
+        return showOppositeGender;
+    }
+
+    public void setShowOppositeGender(boolean showOppositeGender) {
+        this.showOppositeGender = showOppositeGender;
+    }
 
     public class Settings{
         private String _id;

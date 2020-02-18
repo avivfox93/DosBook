@@ -47,7 +47,10 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
             listItem = LayoutInflater.from(cntx).inflate(R.layout.comment_item,parent,false);
 
         Comment currentComment = commentList.get(position);
-
+        if(!MyApp.getMyUserProfile().isShowOppositeGender() && currentComment.getUserProfile().getGender() != MyApp.getMyUserProfile().getGender()){
+            listItem.setVisibility(View.GONE);
+            return listItem;
+        }
         ImageView profileImage = listItem.findViewById(R.id.comment_profile_pic);
 
         RequestBuilder<Drawable> requestBuilder = MyApp.getRequestManager()

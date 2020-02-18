@@ -106,7 +106,9 @@ public class FeedFragment extends Fragment {
                 postPictures.clear();
                 loadingDialog.dismiss();
                 if(err)
-                    Toast.makeText(this.getContext(),"Unexpected Error!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this.getContext(), "Unexpected Error!", Toast.LENGTH_SHORT).show();
+                else
+                    postText.getText().clear();
             },p);
         });
         pictureButton.setOnClickListener(e-> pickPicture());

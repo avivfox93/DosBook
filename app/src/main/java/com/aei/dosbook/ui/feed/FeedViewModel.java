@@ -6,10 +6,6 @@ import androidx.lifecycle.ViewModel;
 
 public class FeedViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
-
     public FeedViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
     }
 }
