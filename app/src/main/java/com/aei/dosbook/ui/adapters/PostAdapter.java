@@ -64,15 +64,15 @@ public class PostAdapter extends ArrayAdapter<Post> {
         dateFormat = new SimpleDateFormat("HH:mm dd/MM/YYYY",Locale.ENGLISH);
         this.commentCallback = commentCallback;
         this.profileCallback = profileCallback;
-        Log.e("Gender","Genders: " + MyApp.getMyUserProfile().getGendersToShow().size());
-        postList.forEach(post -> {
-            List<Comment> toRemove = new ArrayList<>();
-            post.getComments().forEach(comment -> {
-                if(!MyApp.getMyUserProfile().getGendersToShow().contains(comment.getUserProfile().getGender()))
-                    toRemove.add(comment);
-            });
-            post.getComments().removeAll(toRemove);
-        });
+//        Log.e("Gender","Genders: " + MyApp.getMyUserProfile().getGendersToShow().size());
+//        postList.forEach(post -> {
+//            List<Comment> toRemove = new ArrayList<>();
+//            post.getComments().forEach(comment -> {
+//                if(!MyApp.getMyUserProfile().getGendersToShow().contains(comment.getUserProfile().getGender()))
+//                    toRemove.add(comment);
+//            });
+//            post.getComments().removeAll(toRemove);
+//        });
     }
 
     @NonNull

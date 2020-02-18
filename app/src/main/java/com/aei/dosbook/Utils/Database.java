@@ -43,6 +43,7 @@ public class Database {
     private static final String PICTURES_UPLOAD_PATH = "/api/upload";
     private static final String PICTURES_DOWNLOAD_PATH = "/api/photo";
     private static final String PICTURES_COMMENT_PATH = "/api/comment";
+    private static final String PROFILE_SET_SHOE_GENDER = "/api/set_gender_filter";
 
     private static Database database;
 
@@ -279,6 +280,20 @@ public class Database {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, address,
                 json, response -> callback.onFinish(false,json),
                 error -> callback.onFinish(true,null));
+        MyApp.getHttpManager().sendRequest(request);
+    }
+
+    public void updateShowOpposingGender(){
+        String address = MyApp.SERVER_ADDRESS + PROFILE_SET_SHOE_GENDER;
+        JSONObject json = new JSONObject();
+        try{
+            json.put("show",MyApp.getMyUserProfile().isShowOppositeGender());
+            json.put("token",Verification.getToken());
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, address,
+                json, response -> {},error -> {});
         MyApp.getHttpManager().sendRequest(request);
     }
 

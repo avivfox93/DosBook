@@ -8,7 +8,6 @@ public class MyUserProfile extends UserProfile {
 
     private String phone;
     private String uid;
-    private List<Gender> gendersToShow = Gender.getList();
     private Settings settings = new Settings();
     private boolean showOppositeGender = true;
 
@@ -59,14 +58,6 @@ public class MyUserProfile extends UserProfile {
 
     public void setDOB(Date dob){
         this.dob = dob;
-    }
-
-    public List<Gender> getGendersToShow() {
-        return gendersToShow;
-    }
-
-    public void setGendersToShow(List<Gender> gendersToShow) {
-        this.gendersToShow = gendersToShow;
     }
 
     public Settings getSettings(){return settings;}

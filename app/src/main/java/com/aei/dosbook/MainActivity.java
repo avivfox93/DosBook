@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.aei.dosbook.Utils.Database;
 import com.aei.dosbook.Utils.MyApp;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -49,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.settings_gender) {
             MyApp.getMyUserProfile().setShowOppositeGender(!MyApp.getMyUserProfile().isShowOppositeGender());
+            Database.getInstance().updateShowOpposingGender();
             return true;
         }
         return super.onOptionsItemSelected(item);
