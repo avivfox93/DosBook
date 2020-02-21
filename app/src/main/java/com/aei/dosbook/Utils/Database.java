@@ -267,7 +267,7 @@ public class Database {
 
                 ArrayList<UserProfile> profiles = new Gson().fromJson(array.toString(),
                         new TypeToken<List<UserProfile>>(){}.getType());
-                Log.e("DATABASE","SIZE: " + array.toString());
+//                Log.e("DATABASE","SIZE: " + array.toString());
                 callback.onFinish(false,profiles);
             }catch (Exception e){
                 e.printStackTrace();

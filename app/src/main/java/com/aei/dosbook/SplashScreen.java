@@ -6,6 +6,7 @@ import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.view.Window;
 import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
@@ -19,11 +20,11 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
         ImageView splashScreenImage = findViewById(R.id.splash_screen_image);
-        splashScreenImage.animate().scaleX(3.5f).scaleY(3.5f).setInterpolator(new BounceInterpolator())
+        splashScreenImage.animate().scaleX(0.95f).scaleY(0.95f).setInterpolator(new BounceInterpolator())
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
-
+                        splashScreenImage.setVisibility(View.VISIBLE);
                     }
 
                     @Override

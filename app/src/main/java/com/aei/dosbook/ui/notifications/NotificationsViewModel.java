@@ -25,7 +25,6 @@ public class NotificationsViewModel extends ViewModel {
 
     public void getRequests(OnRequestsCallback callback){
         Database.getInstance().getUsersProfile((err, result) -> {
-            Log.e("WALLAKKKK","" + err);
             MyUserProfile myUserProfile = MyApp.getMyUserProfile();
             if(!myUserProfile.isShowOppositeGender()){
                 result = result.stream()

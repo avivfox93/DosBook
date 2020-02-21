@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -25,13 +24,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.aei.dosbook.Entities.Comment;
+import com.aei.dosbook.CustomeGraphics.ImageButton;
 import com.aei.dosbook.Entities.Picture;
 import com.aei.dosbook.Entities.Post;
 import com.aei.dosbook.R;
@@ -40,16 +37,12 @@ import com.aei.dosbook.Utils.ImageUtils;
 import com.aei.dosbook.Utils.MyApp;
 import com.aei.dosbook.ui.NavigationDataManager;
 import com.aei.dosbook.ui.adapters.PostAdapter;
-import com.aei.dosbook.ui.profile.ProfileFragment;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -60,7 +53,8 @@ public class FeedFragment extends Fragment {
     private Context cntx;
     private PostAdapter postAdapter;
     private ListView postListView;
-    private Button postButton, pictureButton;
+    private Button postButton;
+    private ImageButton pictureButton;
     private Dialog loadingDialog;
     private EditText postText;
     private List<Picture> postPictures = new ArrayList<>();
@@ -111,6 +105,7 @@ public class FeedFragment extends Fragment {
                     postText.getText().clear();
             },p);
         });
+        pictureButton.setAnimationEnabled(true);
         pictureButton.setOnClickListener(e-> pickPicture());
         refreshLayout = view.findViewById(R.id.feed_swipe_layout);
         refreshLayout.setOnRefreshListener(this::updateFeed);
