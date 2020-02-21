@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     tools:context=".RegistrationActivity">
 
     <TextView
@@ -12,11 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="40sp"
-        android:padding="40dp"
+        android:padding="30dp"
         android:fontFamily="@font/sea_gardens"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:text="Register"/>
     <ScrollView
         android:layout_width="match_parent"
@@ -50,8 +49,6 @@
                 android:layout_width="250dp"
                 android:layout_height="match_parent"
                 android:hint="DOB"
-                android:clickable="true"
-                android:inputType="date"
                 android:textSize="25sp"/>
             <Spinner
                 android:id="@+id/register_gender_spinner"
@@ -73,8 +70,9 @@
                 android:text="Register"/>
             <ImageView
                 android:id="@+id/register_profile_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:src="@mipmap/ic_launcher"/>
         </LinearLayout>
     </ScrollView>

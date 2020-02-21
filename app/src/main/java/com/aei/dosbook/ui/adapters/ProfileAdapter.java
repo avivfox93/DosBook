@@ -2,6 +2,7 @@ package com.aei.dosbook.ui.adapters;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,10 @@ import com.aei.dosbook.Utils.MyApp;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.RequestOptions;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,7 +38,15 @@ public class ProfileAdapter extends ArrayAdapter<UserProfile> {
     public ProfileAdapter(@NonNull Context context, int resource, @NonNull List<UserProfile> objects, ProfileCallback callback) {
         super(context, resource, objects);
         cntx = context;
-        profileList = objects;
+        if(!MyApp.getMyUserProfile().isShowOppositeGender()) {
+            profileList = objects.stream()
+                    .filter(profile -> profile.getGender() == MyApp.getMyUserProfile().getGender())
+                    .collect(Collectors.toList());
+            clear();
+            addAll(profileList);
+        }
+        else
+            profileList = objects;
         this.callback = callback;
     }
 
@@ -48,10 +59,6 @@ public class ProfileAdapter extends ArrayAdapter<UserProfile> {
 
         UserProfile currentProfile = profileList.get(position);
 
-        if(!MyApp.getMyUserProfile().isShowOppositeGender() && currentProfile.getGender() != MyApp.getMyUserProfile().getGender()){
-            listItem.setVisibility(View.GONE);
-            return listItem;
-        }
         ImageView profileImage = listItem.findViewById(R.id.profile_item_pic);
 
         RequestBuilder<Drawable> requestBuilder = MyApp.getRequestManager()

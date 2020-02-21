@@ -36,6 +36,7 @@ public class Database {
     private static final String USER_PROFILE_PATH = "/api/profiles";
     private static final String APPROVE_REQUEST_PATH = "/api/approve_request";
     private static final String GET_PROFILES_PATH = "/api/get_profiles";
+    private static final String GET_FRIEND_REQ_PATH = "/api/get_friends_req";
     private static final String FIND_PROFILES_PATH = "/api/find_profiles";
     private static final String POSTS_PROFILE_PATH = "/api/get_profile_posts";
     private static final String POSTS_PATH = "/api/get_posts";
@@ -247,6 +248,33 @@ public class Database {
         }
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, address,
                 json, response -> {},
+                Throwable::printStackTrace);
+        MyApp.getHttpManager().sendRequest(request);
+    }
+
+    public void getFriendRequests(Callback<List<UserProfile>> callback){
+        String address = MyApp.SERVER_ADDRESS + GET_FRIEND_REQ_PATH;
+        JSONObject json = new JSONObject();
+        try{
+            json.put("token",Verification.getToken());
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, address,
+                json, response -> {
+            try{
+                JSONArray array = response.getJSONArray("req");
+
+                ArrayList<UserProfile> profiles = new Gson().fromJson(array.toString(),
+                        new TypeToken<List<UserProfile>>(){}.getType());
+                Log.e("DATABASE","SIZE: " + array.toString());
+                callback.onFinish(false,profiles);
+            }catch (Exception e){
+                e.printStackTrace();
+                callback.onFinish(true,null);
+
+            }
+        },
                 Throwable::printStackTrace);
         MyApp.getHttpManager().sendRequest(request);
     }

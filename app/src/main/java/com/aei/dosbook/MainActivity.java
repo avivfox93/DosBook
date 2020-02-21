@@ -3,11 +3,13 @@ package com.aei.dosbook;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.aei.dosbook.Utils.Database;
 import com.aei.dosbook.Utils.MyApp;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.settings_gender) {
             MyApp.getMyUserProfile().setShowOppositeGender(!MyApp.getMyUserProfile().isShowOppositeGender());
             Database.getInstance().updateShowOpposingGender();
+            Toast.makeText(this,"Please Refresh Feed",Toast.LENGTH_SHORT).show();
             return true;
         }
         return super.onOptionsItemSelected(item);

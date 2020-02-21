@@ -21,6 +21,7 @@ import com.bumptech.glide.request.RequestOptions;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,7 +36,15 @@ public class CommentAdapter extends ArrayAdapter<Comment> {
     public CommentAdapter(@NonNull Context context, int resource, @NonNull List<Comment> objects) {
         super(context, resource, objects);
         cntx = context;
-        commentList = objects;
+        if(!MyApp.getMyUserProfile().isShowOppositeGender()) {
+            commentList = objects.stream()
+                    .filter(comment -> comment.getUserProfile().getGender() == MyApp.getMyUserProfile().getGender())
+                    .collect(Collectors.toList());
+            clear();
+            addAll(commentList);
+        }
+        else
+            commentList = objects;
         dateFormat = new SimpleDateFormat("HH:mm dd/MM/YYYY",Locale.ENGLISH);
     }
 

@@ -10,10 +10,13 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.InputType;
 import android.util.Log;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -29,6 +32,8 @@ import com.aei.dosbook.Utils.Database;
 import com.aei.dosbook.Utils.ImageUtils;
 import com.aei.dosbook.Utils.MyApp;
 import com.aei.dosbook.Utils.Verification;
+import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.gson.Gson;
 
 import java.io.ByteArrayOutputStream;
@@ -37,6 +42,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.Objects;
 
 public class RegistrationActivity extends AppCompatActivity {
 
@@ -66,7 +72,7 @@ public class RegistrationActivity extends AppCompatActivity {
         genderSelect.setAdapter(new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, UserProfile.Gender.values()));
         profileBtn.setOnClickListener(e->{pickPicture();registerBtn.setEnabled(false);});
-        DOB.setClickable(true);
+        DOB.setInputType(InputType.TYPE_NULL);
         DOB.setOnClickListener(e->{
             DatePickerDialog datePickerDialog = new DatePickerDialog(this);
             datePickerDialog.setButton(DatePickerDialog.BUTTON_POSITIVE, "OK", (dialog, which) -> {
@@ -91,14 +97,17 @@ public class RegistrationActivity extends AppCompatActivity {
                     fName.getText().toString(),lName.getText().toString(),dob.getTime());
             profile.setPhone(MyApp.getPrefs().getString("phone",""));
             profile.setToken(Verification.getToken());
+            profile.setUid(Verification.getToken());
             MyApp.setMyUserProfile(profile);
             registerProfile(profile);
+            loadingDialog.show();
             registerBtn.setEnabled(false);
         });
     }
 
     void registerProfile(MyUserProfile profile){
         Database.getInstance().registerUserProfile((err, result) -> {
+            loadingDialog.dismiss();
             if(err) {
                 Log.e("DATABASE", "Error registering");
                 registerBtn.setEnabled(true);
@@ -133,6 +142,12 @@ public class RegistrationActivity extends AppCompatActivity {
         },profilePic);
     }
 
+    void drawProfilePic(Bitmap bitmap){
+        RequestBuilder<Drawable> requestBuilder = MyApp.getRequestManager()
+                .load(bitmap);
+        requestBuilder.apply(RequestOptions.circleCropTransform()).into(profileImage);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
@@ -145,7 +160,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         try {
                             profilePic = (Bitmap) data.getExtras().get("data");
                             profilePic = ImageUtils.setOriented(profilePic,data.getData().getPath());
-                            profileImage.setImageBitmap(profilePic);
+                            drawProfilePic(profilePic);
                         }catch (Exception e){
                             e.printStackTrace();
                         }
@@ -169,7 +184,8 @@ public class RegistrationActivity extends AppCompatActivity {
                                 }catch(IOException e){
                                     e.printStackTrace();
                                 }
-                                profileImage.setImageBitmap(profilePic);
+
+                                drawProfilePic(profilePic);
                                 cursor.close();
                             }
                         }

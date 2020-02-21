@@ -76,6 +76,7 @@ public class ProfileFragment extends Fragment {
         addFriend.setOnClickListener(e->{
             addFriend.setEnabled(false);
             Database.getInstance().sendFriendRequest(profile.get_id());
+            MyApp.getMyUserProfile().getOutFriendReq().add(profile.get_id());
         });
         friendsList.setText(String.format(Locale.ENGLISH,"%d Friends",profile.getFriendsId().size()));
         friendsList.setOnClickListener(e->{

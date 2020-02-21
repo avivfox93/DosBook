@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -60,7 +61,15 @@ public class PostAdapter extends ArrayAdapter<Post> {
                        CommentCallback commentCallback, ProfileCallback profileCallback) {
         super(context, resource, objects);
         cntx = context;
-        postList = objects;
+        if(!MyApp.getMyUserProfile().isShowOppositeGender()) {
+            postList = objects.stream()
+                    .filter(post -> post.getUserProfile().getGender() == MyApp.getMyUserProfile().getGender())
+                    .collect(Collectors.toList());
+            clear();
+            addAll(postList);
+        }
+        else
+            postList = objects;
         dateFormat = new SimpleDateFormat("HH:mm dd/MM/YYYY",Locale.ENGLISH);
         this.commentCallback = commentCallback;
         this.profileCallback = profileCallback;
@@ -82,10 +91,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
         if(listItem == null)
             listItem = LayoutInflater.from(cntx).inflate(R.layout.post_item,parent,false);
         Post currentPost = postList.get(position);
-        if(!MyApp.getMyUserProfile().isShowOppositeGender() && currentPost.getUserProfile().getGender() != MyApp.getMyUserProfile().getGender()){
-            listItem.setVisibility(View.GONE);
-            return listItem;
-        }
+
         ImageView image = listItem.findViewById(R.id.post_pic);
         ImageView profileImage = listItem.findViewById(R.id.post_profile_pic);
         profileImage.setOnClickListener(e->profileCallback.onClick(currentPost.getUserProfile()));

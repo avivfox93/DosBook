@@ -6,8 +6,11 @@ import android.animation.Animator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Window;
 import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
+
+import java.util.Objects;
 
 public class SplashScreen extends AppCompatActivity {
 

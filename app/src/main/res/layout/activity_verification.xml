@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     tools:context=".VerificationActivity">
 
     <TextView
@@ -16,7 +15,7 @@
         android:fontFamily="@font/sea_gardens"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:background="@color/colorPrimaryDark"
+        android:background="@color/colorPrimary"
         android:text="Verification"/>
     <FrameLayout
         android:id="@+id/verifacation_fragment"
