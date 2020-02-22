@@ -9,7 +9,6 @@ import com.aei.dosbook.Utils.Database;
 import com.aei.dosbook.Utils.MyApp;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;

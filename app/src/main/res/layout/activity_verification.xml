@@ -16,7 +16,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:background="@color/colorPrimary"
-        android:text="Verification"/>
+        android:text="@string/verification"/>
     <FrameLayout
         android:id="@+id/verifacation_fragment"
         android:layout_width="match_parent"

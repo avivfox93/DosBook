@@ -4,11 +4,18 @@
     android:layout_centerInParent="true"
     android:layout_height="wrap_content">
 
-    <ImageView
-        android:id="@+id/loading_gif"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/loading_gif"
-        android:layout_centerInParent="true"/>
+    <ProgressBar
+        android:id="@+id/loader"
+        android:layout_marginEnd="5dp"
+        android:layout_width="45dp"
+        android:layout_height="45dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="@string/loading"
+        android:textAppearance="?android:textAppearanceSmall"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/loading_msg"
+        android:layout_toEndOf="@+id/loader"
+        android:layout_height="wrap_content" />
 
 </RelativeLayout>

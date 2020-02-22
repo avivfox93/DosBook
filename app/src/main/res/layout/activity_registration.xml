@@ -16,7 +16,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:background="@color/colorPrimary"
-        android:text="Register"/>
+        android:text="@string/register"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,26 +29,29 @@
             android:orientation="vertical">
             <EditText
                 android:id="@+id/register_fname_in"
+                android:maxLines="1"
                 android:inputType="textPersonName"
                 android:layout_marginBottom="20dp"
                 android:layout_width="250dp"
                 android:layout_height="match_parent"
-                android:hint="First Name"
+                android:hint="@string/first_name"
                 android:textSize="25sp"/>
             <EditText
+                android:maxLines="1"
                 android:id="@+id/register_lname_in"
                 android:inputType="textPersonName"
                 android:layout_marginBottom="20dp"
                 android:layout_width="250dp"
                 android:layout_height="match_parent"
-                android:hint="Last Name"
+                android:hint="@string/last_name"
                 android:textSize="25sp"/>
             <EditText
+                android:maxLines="1"
                 android:id="@+id/register_dob_in"
                 android:layout_marginBottom="20dp"
                 android:layout_width="250dp"
                 android:layout_height="match_parent"
-                android:hint="DOB"
+                android:hint="@string/dob"
                 android:textSize="25sp"/>
             <Spinner
                 android:id="@+id/register_gender_spinner"
@@ -61,13 +64,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
-                android:text="Choose Profile"/>
+                android:text="@string/choose_profile"/>
             <Button
                 android:id="@+id/register_register_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
-                android:text="Register"/>
+                android:text="@string/register"/>
             <ImageView
                 android:id="@+id/register_profile_img"
                 android:paddingTop="15dp"

@@ -24,8 +24,9 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:maxLength="6"
+            android:maxLines="1"
             android:inputType="phone"
-            android:hint="Code"
+            android:hint="@string/code"
             android:gravity="center"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"/>
@@ -37,7 +38,7 @@
             android:backgroundTint="@color/colorPrimary"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
-            android:text="Send"
+            android:text="@string/send"
             android:layout_below="@id/verifacation_code_input"/>
 
     </RelativeLayout>

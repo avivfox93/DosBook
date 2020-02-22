@@ -60,9 +60,6 @@ public class MyApp extends Application {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.loading_dialog_layout);
-        ImageView gifImageView = dialog.findViewById(R.id.loading_gif);
-        RequestBuilder requestBuilder = MyApp.getRequestManager().load(R.drawable.loading_gif);
-        requestBuilder.into(gifImageView);
         return dialog;
     }
 

@@ -9,7 +9,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.annotation.Nullable;
 
 public class ImageButton extends AppCompatImageView {
-    private boolean animation = false;
+    private boolean animation = true;
     public ImageButton(Context context) {
         super(context);
     }

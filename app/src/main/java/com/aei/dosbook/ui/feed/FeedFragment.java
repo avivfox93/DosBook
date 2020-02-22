@@ -53,8 +53,7 @@ public class FeedFragment extends Fragment {
     private Context cntx;
     private PostAdapter postAdapter;
     private ListView postListView;
-    private Button postButton;
-    private ImageButton pictureButton;
+    private ImageButton postButton,pictureButton;
     private Dialog loadingDialog;
     private EditText postText;
     private List<Picture> postPictures = new ArrayList<>();
@@ -105,7 +104,6 @@ public class FeedFragment extends Fragment {
                     postText.getText().clear();
             },p);
         });
-        pictureButton.setAnimationEnabled(true);
         pictureButton.setOnClickListener(e-> pickPicture());
         refreshLayout = view.findViewById(R.id.feed_swipe_layout);
         refreshLayout.setOnRefreshListener(this::updateFeed);
