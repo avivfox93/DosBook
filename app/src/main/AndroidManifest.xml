@@ -18,8 +18,8 @@
         <activity
             android:windowSoftInputMode="adjustPan"
             android:name=".MainActivity"/>
-        <activity android:name=".RegistrationActivity" />
-        <activity android:name=".VerificationActivity" />
+        <activity android:name=".RegistrationActivity" android:label="@string/register" />
+        <activity android:name=".VerificationActivity" android:label="@string/verification"/>
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

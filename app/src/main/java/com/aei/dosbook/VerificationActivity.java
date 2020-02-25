@@ -1,5 +1,32 @@
 package com.aei.dosbook;
 
+import android.Manifest;
+import android.app.Activity;
+import android.app.Dialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.aei.dosbook.Entities.MyUserProfile;
+import com.aei.dosbook.Utils.MyApp;
+import com.aei.dosbook.Utils.Verification;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.Objects;
+import java.util.concurrent.Executor;
+import java.util.concurrent.TimeUnit;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -7,49 +34,13 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.Manifest;
-import android.app.Activity;
-import android.app.Dialog;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Bundle;
-import android.os.Looper;
-import android.util.Log;
-import android.view.Window;
-import android.widget.Toast;
-
-import com.aei.dosbook.Entities.MyUserProfile;
-import com.aei.dosbook.Entities.UserProfile;
-import com.aei.dosbook.Utils.MyApp;
-import com.aei.dosbook.Utils.Verification;
-import com.google.android.gms.safetynet.SafetyNet;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseException;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
-import com.google.gson.Gson;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.Objects;
-import java.util.concurrent.Executor;
-import java.util.concurrent.TimeUnit;
-
 public class VerificationActivity extends AppCompatActivity implements
         PhoneVerificationFragment.OnFragmentInteractionListener,
         CodeVerificationFragment.OnFragmentInteractionListener,
         Executor{
 
     private static final int REQUEST_CODE_ALL_PERMISSIONS = 15;
+    public static final long VERIFICATION_TIMEOUT = 60;
 
     private PhoneVerificationFragment phoneVerificationFragment;
     private CodeVerificationFragment codeVerificationFragment;
@@ -92,6 +83,8 @@ public class VerificationActivity extends AppCompatActivity implements
     }
 
     private void showFragment(Fragment fragment) {
+        if(fragment instanceof CodeVerificationFragment)
+            ((CodeVerificationFragment)fragment).resetTimer();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.verifacation_fragment, fragment);
         transaction.commit();
@@ -115,10 +108,10 @@ public class VerificationActivity extends AppCompatActivity implements
         final VerificationActivity a = this;
         loadingDialog.show();
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
-                phoneNumber,        // Phone number to verify
-                60,                 // Timeout duration
-                TimeUnit.SECONDS,   // Unit of timeout
-                (Executor) this,               // Activity (for callback binding)
+                phoneNumber,            // Phone number to verify
+                VERIFICATION_TIMEOUT,   // Timeout duration
+                TimeUnit.SECONDS,       // Unit of timeout
+                (Executor) this,        // Activity (for callback binding)
                 new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
                     @Override
                     public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
@@ -152,6 +145,13 @@ public class VerificationActivity extends AppCompatActivity implements
     }
 
     @Override
+    public void onVerificationTimeOut(){
+        Toast.makeText(this,"Time is OVER!, please try again",Toast.LENGTH_SHORT).show();
+        codeVerificationFragment.stop();
+        showFragment(phoneVerificationFragment);
+    }
+
+    @Override
     public void execute(Runnable command) {
         this.runOnUiThread(command);
     }
@@ -161,9 +161,11 @@ public class VerificationActivity extends AppCompatActivity implements
         Verification.verifyToken(token,(err, result) -> {
             loadingDialog.dismiss();
             if(err) {
+                Toast.makeText(this,"Unknown Error!, please try again",Toast.LENGTH_SHORT).show();
                 Log.e("Verification","error!!! " + result.toString());
                 return;
             }
+            codeVerificationFragment.stop();
 //            Log.e("JSON",result.toString());
             try {
                 MyUserProfile myUserProfile = new Gson().fromJson(result.getString("user"),MyUserProfile.class);
@@ -188,7 +190,9 @@ public class VerificationActivity extends AppCompatActivity implements
                         // Sign in success, update UI with the signed-in user's information
                         Log.d("FIREBASE", "signInWithCredential:success");
 
-                        FirebaseUser user = task.getResult().getUser();
+                        FirebaseUser user = Objects.requireNonNull(task.getResult()).getUser();
+                        if(user == null)
+                            return;
                         user.getIdToken(true).addOnSuccessListener(getTokenResult -> {
                             String token = getTokenResult.getToken();
                             Verification.setToken(token);
@@ -199,9 +203,8 @@ public class VerificationActivity extends AppCompatActivity implements
                         // Sign in failed, display a message and update the UI
                         Log.w("FIREBASE", "signInWithCredential:failure", task.getException());
                         loadingDialog.dismiss();
-                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                            // The verification code entered was invalid
-                        }
+                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException)
+                            task.getException().printStackTrace();
                     }
                 });
     }

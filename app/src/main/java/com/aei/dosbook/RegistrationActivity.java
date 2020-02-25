@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -16,10 +15,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.InputType;
 import android.util.Log;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -34,12 +31,10 @@ import com.aei.dosbook.Utils.MyApp;
 import com.aei.dosbook.Utils.Verification;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.RequestOptions;
-import com.google.gson.Gson;
 
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Objects;
@@ -49,12 +44,13 @@ public class RegistrationActivity extends AppCompatActivity {
     private String phoneNumber;
     private EditText fName,lName,DOB;
     private Spinner genderSelect;
-    private Button profileBtn, registerBtn;
+    private Button registerBtn;
     private ImageView profileImage;
     private Bitmap profilePic;
     private Dialog loadingDialog;
-    Picture picture;
+    private Picture picture;
     private GregorianCalendar dob = new GregorianCalendar();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,14 +60,13 @@ public class RegistrationActivity extends AppCompatActivity {
         lName = findViewById(R.id.register_lname_in);
         DOB = findViewById(R.id.register_dob_in);
         genderSelect = findViewById(R.id.register_gender_spinner);
-        profileBtn = findViewById(R.id.register_profile_btn);
         registerBtn = findViewById(R.id.register_register_btn);
         profileImage = findViewById(R.id.register_profile_img);
         phoneNumber = getIntent().getStringExtra("phoneNumber");
         SimpleDateFormat  formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         genderSelect.setAdapter(new ArrayAdapter<>(this,
                 android.R.layout.simple_dropdown_item_1line, UserProfile.Gender.values()));
-        profileBtn.setOnClickListener(e->{pickPicture();registerBtn.setEnabled(false);});
+        profileImage.setOnClickListener(e->{pickPicture();registerBtn.setEnabled(false);});
         DOB.setInputType(InputType.TYPE_NULL);
         DOB.setOnClickListener(e->{
             DatePickerDialog datePickerDialog = new DatePickerDialog(this);
@@ -158,8 +153,8 @@ public class RegistrationActivity extends AppCompatActivity {
                 case 0:
                     if (resultCode == RESULT_OK && data != null) {
                         try {
-                            profilePic = (Bitmap) data.getExtras().get("data");
-                            profilePic = ImageUtils.setOriented(profilePic,data.getData().getPath());
+                            profilePic = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
+                            profilePic = ImageUtils.setOriented(profilePic, Objects.requireNonNull(data.getData()).getPath());
                             drawProfilePic(profilePic);
                         }catch (Exception e){
                             e.printStackTrace();

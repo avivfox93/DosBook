@@ -15,8 +15,24 @@
             android:text="@string/code_verify_instructions"
             android:gravity="center"
             android:textSize="25sp"
-            android:paddingBottom="30dp"
+            android:paddingBottom="35dp"
             android:layout_above="@id/verifacation_code_input"/>
+
+        <TextView
+            android:id="@+id/verifacation_code_time"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerHorizontal="true"
+            android:padding="5dp"
+            android:textColor="#FF0000"
+            android:layout_above="@id/verifacation_code_input" />
+        <ProgressBar
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@id/verifacation_code_input"
+            android:layout_toEndOf="@id/verifacation_code_time"/>
 
         <EditText
             android:id="@+id/verifacation_code_input"
@@ -33,9 +49,10 @@
 
         <Button
             android:id="@+id/verifacation_code_ok_button"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
+            android:textAllCaps="false"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimary"
+            android:background="@drawable/button_gradient"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="25dp"
             android:text="@string/send"
