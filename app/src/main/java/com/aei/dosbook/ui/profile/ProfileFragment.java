@@ -1,9 +1,6 @@
 package com.aei.dosbook.ui.profile;
 
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -16,20 +13,18 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.aei.dosbook.CustomeGraphics.MyImageButton;
 import com.aei.dosbook.Entities.UserProfile;
 import com.aei.dosbook.R;
 import com.aei.dosbook.Utils.Database;
 import com.aei.dosbook.Utils.MyApp;
 import com.aei.dosbook.ui.NavigationDataManager;
 import com.aei.dosbook.ui.adapters.PostAdapter;
-import com.aei.dosbook.ui.feed.FeedFragment;
-import com.aei.dosbook.ui.feed.FeedViewModel;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.request.RequestOptions;
 
@@ -68,13 +63,17 @@ public class ProfileFragment extends Fragment {
         profileGender.setText(profile.getGender().toString());
         posts = view.findViewById(R.id.profile_frag_postsList);
         TextView friendsList = view.findViewById(R.id.profile_frag_friendsList);
-        Button addFriend = view.findViewById(R.id.profile_frag_add_friend);
+        MyImageButton addFriend = view.findViewById(R.id.profile_frag_add_friend);
         if(profile.get_id().equals(MyApp.getMyUserProfile().get_id()) ||
                 MyApp.getMyUserProfile().getFriendsId().contains(profile.get_id()) ||
-                MyApp.getMyUserProfile().getOutFriendReq().contains(profile.get_id()))
+                MyApp.getMyUserProfile().getOutFriendReq().contains(profile.get_id())) {
+            addFriend.setImageResource(R.drawable.ic_friend);
             addFriend.setEnabled(false);
+        }
+        else
+            addFriend.setImageResource(R.drawable.ic_add_friend);
         addFriend.setOnClickListener(e->{
-            addFriend.setEnabled(false);
+            addFriend.setImageResource(R.drawable.ic_friend);
             Database.getInstance().sendFriendRequest(profile.get_id());
             MyApp.getMyUserProfile().getOutFriendReq().add(profile.get_id());
         });

@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.aei.dosbook.Utils.Database;
 import com.aei.dosbook.Utils.MyApp;
+import com.aei.dosbook.ui.NavigationDataManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
 
+    private NavController navController;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,9 +30,14 @@ public class MainActivity extends AppCompatActivity {
                 R.id.navigation_find, R.id.navigation_feed, R.id.navigation_notifications,
                 R.id.navigation_profile)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+    }
+
+    void showMyProfile(){
+        NavigationDataManager.setCurrentProfile(MyApp.getMyUserProfile());
+        navController.navigate(R.id.navigation_profile);
     }
 
     @Override
@@ -49,11 +56,15 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.settings_gender) {
-            MyApp.getMyUserProfile().setShowOppositeGender(!MyApp.getMyUserProfile().isShowOppositeGender());
-            Database.getInstance().updateShowOpposingGender();
-            Toast.makeText(this,"Please Refresh Feed",Toast.LENGTH_SHORT).show();
-            return true;
+        switch (item.getItemId()){
+            case R.id.settings_gender:
+                MyApp.getMyUserProfile().setShowOppositeGender(!MyApp.getMyUserProfile().isShowOppositeGender());
+                Database.getInstance().updateShowOpposingGender();
+                Toast.makeText(this,"Please Refresh Feed",Toast.LENGTH_SHORT).show();
+                return true;
+            case R.id.settings_profile:
+                showMyProfile();
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

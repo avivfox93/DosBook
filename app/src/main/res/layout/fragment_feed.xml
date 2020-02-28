@@ -16,7 +16,7 @@
             android:orientation="horizontal">
             <EditText
                 android:id="@+id/feed_post_body"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:layout_weight="3"
@@ -28,16 +28,15 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical">
-                <com.aei.dosbook.CustomeGraphics.ImageButton
+                <com.aei.dosbook.CustomeGraphics.MyImageButton
                     android:id="@+id/feed_post_btn"
                     android:gravity="center"
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_iconfinder_send"
-                    android:text="Post"/>
-                <com.aei.dosbook.CustomeGraphics.ImageButton
+                    android:src="@drawable/ic_iconfinder_send"/>
+                <com.aei.dosbook.CustomeGraphics.MyImageButton
                     android:id="@+id/feed_picture_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -47,6 +46,10 @@
             </LinearLayout>
 
         </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
 
     </LinearLayout>
 
@@ -58,6 +61,8 @@
         android:layout_below="@id/feed_head">
         <ListView
             android:id="@+id/feed_post_list"
+            android:divider="?android:dividerHorizontal"
+            android:dividerHeight="1dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:descendantFocusability="afterDescendants"

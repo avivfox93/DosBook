@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/settings_profile"
+        android:title="@string/show_my_profile"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/ic_profile"/>
     <item android:id="@+id/settings_gender"
         android:title="@string/show_opposite_genders"
         android:checkable="true" />

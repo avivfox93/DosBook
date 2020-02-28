@@ -1,39 +1,29 @@
 package com.aei.dosbook.ui.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.aei.dosbook.CustomeGraphics.MyImageButton;
 import com.aei.dosbook.Entities.Comment;
 import com.aei.dosbook.Entities.Post;
 import com.aei.dosbook.Entities.UserProfile;
 import com.aei.dosbook.R;
 import com.aei.dosbook.Utils.Database;
 import com.aei.dosbook.Utils.MyApp;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.RequestBuilder;
-import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 
-import org.w3c.dom.Text;
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -126,7 +116,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
         TextView postDate = listItem.findViewById(R.id.post_date);
         postDate.setText(dateFormat.format(currentPost.getDate()));
 
-        Button commentSendButton = listItem.findViewById(R.id.post_comment_send);
+        MyImageButton commentSendButton = listItem.findViewById(R.id.post_comment_send);
         EditText commentText = listItem.findViewById(R.id.post_send_comment_text);
         commentText.addTextChangedListener(new TextWatcher() {
             @Override

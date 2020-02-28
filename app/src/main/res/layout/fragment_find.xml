@@ -18,16 +18,18 @@
                 android:maxLines="1"
                 android:layout_marginEnd="5dp"
                 android:layout_height="match_parent"
-                android:hint="search..."/>
+                android:hint="@string/search"/>
             <Button
                 android:id="@+id/find_search_btn"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:text="Find"/>
+                android:text="@string/find"/>
         </LinearLayout>
         <ListView
             android:id="@+id/find_profile_list"
+            android:divider="?android:dividerHorizontal"
+            android:dividerHeight="1dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>

@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -28,7 +27,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.Navigation;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.aei.dosbook.CustomeGraphics.ImageButton;
+import com.aei.dosbook.CustomeGraphics.MyImageButton;
 import com.aei.dosbook.Entities.Picture;
 import com.aei.dosbook.Entities.Post;
 import com.aei.dosbook.R;
@@ -53,7 +52,7 @@ public class FeedFragment extends Fragment {
     private Context cntx;
     private PostAdapter postAdapter;
     private ListView postListView;
-    private ImageButton postButton,pictureButton;
+    private MyImageButton postButton,pictureButton;
     private Dialog loadingDialog;
     private EditText postText;
     private List<Picture> postPictures = new ArrayList<>();
