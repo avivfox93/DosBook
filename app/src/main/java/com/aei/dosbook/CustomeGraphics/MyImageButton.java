@@ -5,29 +5,30 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 
-import androidx.appcompat.widget.AppCompatImageButton;
-
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageButton;
 
 public class MyImageButton extends AppCompatImageButton{
     private boolean animation = true;
+    private boolean backgroundSet = false;
     public MyImageButton(Context context) {
         super(context);
-        setBackgroundResource(getBackgroundRes());
+        if(!backgroundSet)setBackgroundResource(getBackgroundRes());
     }
 
     public MyImageButton(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        setBackgroundResource(getBackgroundRes());
+        if(!backgroundSet)setBackgroundResource(getBackgroundRes());
     }
 
     public MyImageButton(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setBackgroundResource(getBackgroundRes());
+        if(!backgroundSet)setBackgroundResource(getBackgroundRes());
     }
-    int getBackgroundRes(){
+    private int getBackgroundRes(){
         TypedValue value = new TypedValue();
-        getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, value, true);
+        getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackgroundBorderless, value, true);
+        backgroundSet = true;
         return value.resourceId;
     }
     public void setAnimationEnabled(boolean animation){

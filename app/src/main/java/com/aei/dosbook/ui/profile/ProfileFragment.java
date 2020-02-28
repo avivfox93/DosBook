@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.aei.dosbook.CustomeGraphics.MyImageButton;
 import com.aei.dosbook.Entities.UserProfile;
@@ -79,8 +78,8 @@ public class ProfileFragment extends Fragment {
         });
         friendsList.setText(String.format(Locale.ENGLISH,"%d Friends",profile.getFriendsId().size()));
         friendsList.setOnClickListener(e->{
-            Toast.makeText(getContext(),"He got " + profile.getFriendsId().size() + " friends",
-                    Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(),"He got " + profile.getFriendsId().size() + " friends",
+//                    Toast.LENGTH_SHORT).show();
             Database.getInstance().getUsersProfile((err, result) -> {
                 if(err)
                     result = new ArrayList<>();

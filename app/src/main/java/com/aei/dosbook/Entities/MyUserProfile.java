@@ -8,7 +8,6 @@ public class MyUserProfile extends UserProfile {
 
     private String phone;
     private String uid;
-    private Settings settings = new Settings();
     private boolean showOppositeGender = true;
 
 
@@ -60,20 +59,12 @@ public class MyUserProfile extends UserProfile {
         this.dob = dob;
     }
 
-    public Settings getSettings(){return settings;}
-
     public boolean isShowOppositeGender() {
         return showOppositeGender;
     }
 
     public void setShowOppositeGender(boolean showOppositeGender) {
         this.showOppositeGender = showOppositeGender;
-    }
-
-    public class Settings{
-        private String _id;
-        private boolean showDifferentGender = true;
-        private boolean receiveNotifications = false;
     }
 }
 
