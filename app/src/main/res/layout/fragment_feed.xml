@@ -14,14 +14,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <EditText
-                android:id="@+id/feed_post_body"
-                android:layout_width="0dp"
+            <LinearLayout
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_width="0dp"
                 android:layout_weight="3"
-                android:hint="@string/whats_on_your_mind"
-                android:textSize="20sp"/>
+                android:orientation="vertical">
+                <EditText
+                    android:id="@+id/feed_post_body"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+
+                    android:hint="@string/whats_on_your_mind"
+                    android:textSize="20sp"/>
+                <ImageView
+                    android:id="@+id/feed_image_upload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_image_place_holder"
+                    android:layout_gravity="center"
+                    android:visibility="gone" />
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,7 +55,7 @@
                     android:layout_height="wrap_content"
                     android:padding="5dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_iconfinder_photo"/>
+                    android:src="@drawable/ic_gallery_item"/>
             </LinearLayout>
 
         </LinearLayout>

@@ -1,12 +1,15 @@
 package com.aei.dosbook.ui.adapters;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,6 +20,7 @@ import com.aei.dosbook.CustomeGraphics.MyImageButton;
 import com.aei.dosbook.Entities.Comment;
 import com.aei.dosbook.Entities.Post;
 import com.aei.dosbook.Entities.UserProfile;
+import com.aei.dosbook.ImageActivity;
 import com.aei.dosbook.R;
 import com.aei.dosbook.Utils.Database;
 import com.aei.dosbook.Utils.MyApp;
@@ -38,6 +42,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
     private SimpleDateFormat dateFormat;
     private CommentCallback commentCallback;
     private ProfileCallback profileCallback;
+    private ImageCallback imageCallback;
 
     public interface CommentCallback{
         void onSend(Post post, Comment comment);
@@ -47,8 +52,13 @@ public class PostAdapter extends ArrayAdapter<Post> {
         void onClick(UserProfile profile);
     }
 
+    public interface ImageCallback{
+        void onClick(String url);
+    }
+
     public PostAdapter(@NonNull Context context, int resource, @NonNull List<Post> objects,
-                       CommentCallback commentCallback, ProfileCallback profileCallback) {
+                       CommentCallback commentCallback, ProfileCallback profileCallback,
+                       ImageCallback imageCallback) {
         super(context, resource, objects);
         cntx = context;
         if(!MyApp.getMyUserProfile().isShowOppositeGender()) {
@@ -63,15 +73,7 @@ public class PostAdapter extends ArrayAdapter<Post> {
         dateFormat = new SimpleDateFormat("HH:mm dd/MM/YYYY",Locale.ENGLISH);
         this.commentCallback = commentCallback;
         this.profileCallback = profileCallback;
-//        Log.e("Gender","Genders: " + MyApp.getMyUserProfile().getGendersToShow().size());
-//        postList.forEach(post -> {
-//            List<Comment> toRemove = new ArrayList<>();
-//            post.getComments().forEach(comment -> {
-//                if(!MyApp.getMyUserProfile().getGendersToShow().contains(comment.getUserProfile().getGender()))
-//                    toRemove.add(comment);
-//            });
-//            post.getComments().removeAll(toRemove);
-//        });
+        this.imageCallback = imageCallback;
     }
 
     @NonNull
@@ -88,6 +90,8 @@ public class PostAdapter extends ArrayAdapter<Post> {
         if(!currentPost.getPictures().isEmpty()) {
             RequestBuilder requestBuilder = MyApp.getRequestManager()
                     .load(Database.getPhotoURL(currentPost.getPictures().get(0).getUrl()));
+            image.setOnClickListener(e->
+                    imageCallback.onClick(Database.getPhotoURL(currentPost.getPictures().get(0).getUrl())));
             requestBuilder.into(image);
             image.setVisibility(View.VISIBLE);
         }else

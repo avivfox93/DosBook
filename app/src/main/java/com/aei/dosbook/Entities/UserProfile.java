@@ -78,6 +78,10 @@ public class UserProfile {
         return outFriendReq;
     }
 
+    public void setProfilePic(Picture profilePic) {
+        this.profilePic = profilePic;
+    }
+
     //    public String toJson(){
 //        List<UserProfile> temp = new ArrayList<>();
 //        friends.forEach(f->{

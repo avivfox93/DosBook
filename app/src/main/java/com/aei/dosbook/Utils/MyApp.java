@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -91,6 +93,17 @@ public class MyApp extends Application {
 
     public static SimpleDateFormat getDateFormatter(){
         return formatter;
+    }
+
+    public static Dialog getImageDialog(Context cntx, String url){
+        Dialog settingsDialog = new Dialog(cntx, android.R.style.Theme_Light);
+        settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        View inf = LayoutInflater.from(cntx).inflate(R.layout.activity_image,null);
+        ImageView image = inf.findViewById(R.id.activity_image_image);
+        getRequestManager().load(url).into(image);
+        inf.findViewById(R.id.activity_image_close).setOnClickListener(l->settingsDialog.dismiss());
+        settingsDialog.setContentView(inf);
+        return settingsDialog;
     }
 }
 

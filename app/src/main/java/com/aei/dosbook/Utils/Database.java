@@ -42,6 +42,7 @@ public class Database {
     private static final String POSTS_PATH = "/api/get_posts";
     private static final String SEND_POST_PATH = "/api/post";
     private static final String PICTURES_UPLOAD_PATH = "/api/upload";
+    private static final String SET_PROFILE_PICTURE = "/api/set_profile";
     private static final String PICTURES_DOWNLOAD_PATH = "/api/photo";
     private static final String PICTURES_COMMENT_PATH = "/api/comment";
     private static final String PROFILE_SET_SHOE_GENDER = "/api/set_gender_filter";
@@ -208,6 +209,21 @@ public class Database {
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, address,
                 json, response -> callback.onFinish(false, json),
                 error ->{ callback.onFinish(true,null);error.printStackTrace();});
+        MyApp.getHttpManager().sendRequest(request);
+    }
+
+    public void setProfilePicture(Callback<JSONObject> callback, Picture pic){
+        String address = MyApp.SERVER_ADDRESS + SET_PROFILE_PICTURE;
+        JSONObject json = new JSONObject();
+        try{
+            json.put("picture",new Gson().toJson(pic));
+            json.put("token",Verification.getToken());
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, address,
+                json, response -> callback.onFinish(true, response),
+                error -> callback.onFinish(true,null));
         MyApp.getHttpManager().sendRequest(request);
     }
 

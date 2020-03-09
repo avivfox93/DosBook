@@ -15,11 +15,22 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
             android:orientation="horizontal">
-            <ImageView
-                android:id="@+id/profile_frag_pic"
+            <RelativeLayout
                 android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:src="@mipmap/ic_launcher"/>
+                android:layout_height="100dp">
+                <ImageView
+                    android:id="@+id/profile_frag_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@mipmap/ic_launcher"/>
+                <com.aei.dosbook.CustomeGraphics.MyImageButton
+                    android:id="@+id/profile_swap_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/ic_profile_swap"
+                    android:visibility="gone"/>
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

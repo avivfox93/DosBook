@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.aei.dosbook">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -14,12 +15,29 @@
         android:roundIcon="@drawable/ic_dosbook"
         android:supportsRtl="false"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:ignore="AllowBackup,GoogleAppIndexingWarning,InnerclassSeparator">
+        <activity android:name=".ImageActivity"/>
         <activity
-            android:windowSoftInputMode="adjustPan"
-            android:name=".MainActivity"/>
-        <activity android:name=".RegistrationActivity" android:label="@string/register" />
-        <activity android:name=".VerificationActivity" android:label="@string/verification"/>
+            android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="image/*" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RegistrationActivity"
+            android:label="@string/register" />
+        <activity
+            android:name=".VerificationActivity"
+            android:label="@string/verification" />
         <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
