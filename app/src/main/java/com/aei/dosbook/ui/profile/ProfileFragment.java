@@ -28,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.aei.dosbook.CustomeGraphics.MyImageButton;
+import com.aei.dosbook.Entities.Picture;
 import com.aei.dosbook.Entities.UserProfile;
 import com.aei.dosbook.R;
 import com.aei.dosbook.Utils.Database;
@@ -41,6 +42,7 @@ import com.bumptech.glide.request.RequestOptions;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -107,7 +109,8 @@ public class ProfileFragment extends Fragment {
                     Navigation.findNavController(view).navigate(R.id.navigation_find);
             },profile.getFriendsId());
         });
-        profileImage.setOnClickListener(e-> onImageClick.onClick(Database.getPhotoURL(profile.getProfilePic().getUrl())));
+        List<Picture> p = new ArrayList<>(); p.add(profile.getProfilePic());
+        profileImage.setOnClickListener(e-> onImageClick.onClick(p));
         profileSwapButton.setOnClickListener(e-> pickPicture());
         updatePosts();
         return view;

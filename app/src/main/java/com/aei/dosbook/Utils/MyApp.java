@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
+import android.gesture.GestureLibraries;
+import android.gesture.GestureLibrary;
+import android.gesture.GestureOverlayView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -11,13 +15,16 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.aei.dosbook.Entities.MyUserProfile;
+import com.aei.dosbook.Entities.Picture;
 import com.aei.dosbook.R;
+import com.aei.dosbook.ui.OnSwipeTouchListener;
 import com.androidnetworking.AndroidNetworking;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
 import com.bumptech.glide.RequestManager;
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 import java.util.Locale;
 
 public class MyApp extends Application {
@@ -101,6 +108,41 @@ public class MyApp extends Application {
         View inf = LayoutInflater.from(cntx).inflate(R.layout.activity_image,null);
         ImageView image = inf.findViewById(R.id.activity_image_image);
         getRequestManager().load(url).into(image);
+        inf.findViewById(R.id.activity_image_close).setOnClickListener(l->settingsDialog.dismiss());
+        settingsDialog.setContentView(inf);
+        return settingsDialog;
+    }
+
+    public static Dialog getImageDialog(Context cntx, List<Picture> url){
+        Dialog settingsDialog = new Dialog(cntx, android.R.style.Theme_Light);
+        settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        View inf = LayoutInflater.from(cntx).inflate(R.layout.activity_image,null);
+
+        ImageView image = inf.findViewById(R.id.activity_image_image);
+        getRequestManager().load(Database.getPhotoURL((url.get(0).getUrl()))).into(image);
+        inf.setOnTouchListener(new OnSwipeTouchListener(cntx){
+            int index = 0;
+            public void onSwipeRight() {
+                if(index > 0)
+                    index--;
+                else
+                    return;
+                getRequestManager().load(Database.getPhotoURL((url.get(index).getUrl()))).into(image);
+            }
+            public void onSwipeLeft() {
+                if(index < url.size()-1)
+                    index++;
+                else
+                    return;
+                getRequestManager().load(Database.getPhotoURL((url.get(index).getUrl()))).into(image);
+            }
+            public void onSwipeBottom(){
+                settingsDialog.dismiss();
+            }
+            public void onSwipeTop(){
+                settingsDialog.dismiss();
+            }
+        });
         inf.findViewById(R.id.activity_image_close).setOnClickListener(l->settingsDialog.dismiss());
         settingsDialog.setContentView(inf);
         return settingsDialog;

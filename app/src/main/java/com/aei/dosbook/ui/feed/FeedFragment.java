@@ -17,6 +17,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -132,6 +133,7 @@ public class FeedFragment extends Fragment {
                 }
             }
         }
+        postListView.setFriction(ViewConfiguration.getScrollFriction() * 8);
         return view;
     }
 
@@ -186,24 +188,6 @@ public class FeedFragment extends Fragment {
         }catch (IOException ex){
             ex.printStackTrace();
         }
-//        String[] filePathColumn = {MediaStore.Images.Media.DATA};
-//        if (selectedImage != null) {
-//            Cursor cursor = Objects.requireNonNull(getActivity()).getContentResolver().query(selectedImage,
-//                    filePathColumn, null, null, null);
-//            if (cursor != null) {
-//                cursor.moveToFirst();
-//
-//                int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//                String picturePath = cursor.getString(columnIndex);
-//                pic = (BitmapFactory.decodeFile(picturePath));
-//                try {
-//                    pic = ImageUtils.setOriented(pic, picturePath);
-//                }catch(IOException e){
-//                    e.printStackTrace();
-//                }
-//                cursor.close();
-//            }
-//        }
         if(pic != null) {
             MyApp.getRequestManager()
                     .load(pic)

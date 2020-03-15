@@ -46,11 +46,26 @@
             android:textSize="25sp"
             android:text="ma veze\nwallak\nstam text"
             android:layout_margin="10dp" />
-        <ImageView
-            android:id="@+id/post_pic"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="20dp"/>
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/post_pic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:layout_marginHorizontal="20dp"/>
+            <TextView
+                android:id="@+id/post_pic_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:padding="5dp"
+                android:textSize="50sp"
+                android:textColor="@color/colorPrimary"
+                android:visibility="gone"/>
+        </RelativeLayout>
         <TextView
             android:id="@+id/post_num_of_comments"
             android:layout_width="match_parent"
