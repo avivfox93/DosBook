@@ -82,8 +82,12 @@ public class ProfileFragment extends Fragment {
         profileGender.setText(toCamelCase(profile.getGender().toString()));
         posts = view.findViewById(R.id.profile_frag_postsList);
         TextView friendsList = view.findViewById(R.id.profile_frag_friendsList);
-        MyImageButton profileSwapButton = view.findViewById(R.id.profile_swap_button);
+
+        MyImageButton profileSwapButton = view.findViewById(R.id.profile_pic_swap_button);
+        MyImageButton profileSettingsButton = view.findViewById(R.id.profile_change_details);
         profileSwapButton.setVisibility(profile.get_id().equals(MyApp.getMyUserProfile().get_id()) ? View.VISIBLE : View.GONE);
+        profileSettingsButton.setVisibility(profile.get_id().equals(MyApp.getMyUserProfile().get_id()) ? View.VISIBLE : View.GONE);
+
         MyImageButton addFriend = view.findViewById(R.id.profile_frag_add_friend);
         if(profile.get_id().equals(MyApp.getMyUserProfile().get_id()) ||
                 MyApp.getMyUserProfile().getFriendsId().contains(profile.get_id()) ||
@@ -112,6 +116,22 @@ public class ProfileFragment extends Fragment {
         List<Picture> p = new ArrayList<>(); p.add(profile.getProfilePic());
         profileImage.setOnClickListener(e-> onImageClick.onClick(p));
         profileSwapButton.setOnClickListener(e-> pickPicture());
+
+        profileSettingsButton.setOnClickListener(e->{
+            ProfileSettingsDialog dialog = new ProfileSettingsDialog(requireContext(),((fName, lName) -> {
+                if(fName.isEmpty() || lName.isEmpty()) {
+                    Toast.makeText(requireContext(),"Please Fill all Fields!",Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+                profileName.setText(String.format(Locale.ENGLISH, "%s %s", fName, lName));
+                profile.setfName(fName);
+                profile.setlName(lName);
+                Database.getInstance().updateProfileName(profile);
+                return true;
+            }));
+            dialog.show();
+        });
+
         updatePosts();
         return view;
     }

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true">
+    <LinearLayout
+        android:padding="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/profile_dialog_fname"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/first_name"/>
+        <EditText
+            android:id="@+id/profile_dialog_lname"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/last_name"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <com.aei.dosbook.CustomeGraphics.MyImageButton
+                android:id="@+id/profile_dialog_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_iconfinder_ok"/>
+            <com.aei.dosbook.CustomeGraphics.MyImageButton
+                android:id="@+id/profile_dialog_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_close_button_red"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>

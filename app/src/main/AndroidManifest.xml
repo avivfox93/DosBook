@@ -17,8 +17,11 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning,InnerclassSeparator">
-        <activity android:name=".ImageActivity"/>
         <activity
+            android:screenOrientation="portrait"
+            android:name=".ImageActivity"/>
+        <activity
+            android:screenOrientation="portrait"
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustPan">
             <intent-filter>
@@ -33,12 +36,16 @@
             </intent-filter>
         </activity>
         <activity
+            android:screenOrientation="portrait"
             android:name=".RegistrationActivity"
             android:label="@string/register" />
         <activity
+            android:screenOrientation="portrait"
             android:name=".VerificationActivity"
             android:label="@string/verification" />
-        <activity android:name=".SplashScreen">
+        <activity
+            android:screenOrientation="portrait"
+            android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

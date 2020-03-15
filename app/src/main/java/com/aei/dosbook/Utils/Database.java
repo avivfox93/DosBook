@@ -2,17 +2,14 @@ package com.aei.dosbook.Utils;
 
 import android.graphics.Bitmap;
 import android.util.Base64;
-import android.util.Log;
 
 import com.aei.dosbook.Entities.Comment;
 import com.aei.dosbook.Entities.MyUserProfile;
 import com.aei.dosbook.Entities.Picture;
 import com.aei.dosbook.Entities.Post;
 import com.aei.dosbook.Entities.UserProfile;
-import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -45,7 +42,8 @@ public class Database {
     private static final String SET_PROFILE_PICTURE = "/api/set_profile";
     private static final String PICTURES_DOWNLOAD_PATH = "/api/photo";
     private static final String PICTURES_COMMENT_PATH = "/api/comment";
-    private static final String PROFILE_SET_SHOE_GENDER = "/api/set_gender_filter";
+    private static final String PROFILE_SET_SHOW_GENDER = "/api/set_gender_filter";
+    private static final String PROFILE_SET_NAME = "/api/set_profile_name";
 
     private static Database database;
 
@@ -328,7 +326,7 @@ public class Database {
     }
 
     public void updateShowOpposingGender(){
-        String address = MyApp.SERVER_ADDRESS + PROFILE_SET_SHOE_GENDER;
+        String address = MyApp.SERVER_ADDRESS + PROFILE_SET_SHOW_GENDER;
         JSONObject json = new JSONObject();
         try{
             json.put("show",MyApp.getMyUserProfile().isShowOppositeGender());
@@ -343,6 +341,22 @@ public class Database {
 
     public static String getPhotoURL(String fileName){
         return MyApp.SERVER_ADDRESS + PICTURES_DOWNLOAD_PATH + "/" + fileName;
+    }
+
+    public void updateProfileName(UserProfile profile){
+        String address = MyApp.SERVER_ADDRESS + PROFILE_SET_NAME;
+        JSONObject json = new JSONObject();
+        try{
+            json.put("fname",profile.getfName());
+            json.put("lname",profile.getlName());
+            json.put("token",Verification.getToken());
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, address,
+                json, response -> {},
+                error -> {});
+        MyApp.getHttpManager().sendRequest(request);
     }
 
     private Database(){}

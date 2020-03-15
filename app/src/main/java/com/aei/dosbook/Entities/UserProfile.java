@@ -16,6 +16,9 @@ public class UserProfile {
     private String _id;
     protected Gender gender;
     protected Picture profilePic;
+
+
+
     protected String fName, lName;
     protected Date dob;
     protected List<UserProfile> friends;
@@ -80,6 +83,13 @@ public class UserProfile {
 
     public void setProfilePic(Picture profilePic) {
         this.profilePic = profilePic;
+    }
+    public void setfName(String fName) {
+        this.fName = fName;
+    }
+
+    public void setlName(String lName) {
+        this.lName = lName;
     }
 
     //    public String toJson(){

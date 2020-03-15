@@ -24,7 +24,7 @@
                     android:layout_height="match_parent"
                     android:src="@mipmap/ic_launcher"/>
                 <com.aei.dosbook.CustomeGraphics.MyImageButton
-                    android:id="@+id/profile_swap_button"
+                    android:id="@+id/profile_pic_swap_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
@@ -58,6 +58,12 @@
                     android:textSize="20sp"
                     android:text="GENDER"/>
             </LinearLayout>
+            <com.aei.dosbook.CustomeGraphics.MyImageButton
+                android:id="@+id/profile_change_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_iconfinder_user_half_settings"
+                android:visibility="gone"/>
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"

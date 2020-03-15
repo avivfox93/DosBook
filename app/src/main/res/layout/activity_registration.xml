@@ -82,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:textSize="25sp"
                 android:textAllCaps="false"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/button_gradient"
                 android:text="@string/register"/>
 
