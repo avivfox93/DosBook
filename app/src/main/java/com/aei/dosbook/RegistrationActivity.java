@@ -87,6 +87,10 @@ public class RegistrationActivity extends AppCompatActivity {
             datePickerDialog.show();
         });
         registerBtn.setOnClickListener(e->{
+            if(picture == null || fName.getText().toString().isEmpty() || lName.getText().toString().isEmpty()){
+                Toast.makeText(this,"Please fill all fields and select Profile pic",Toast.LENGTH_SHORT).show();
+                return;
+            }
             MyUserProfile profile = new MyUserProfile(phoneNumber,"0",
                     (UserProfile.Gender) genderSelect.getSelectedItem(),picture,
                     fName.getText().toString(),lName.getText().toString(),dob.getTime());
