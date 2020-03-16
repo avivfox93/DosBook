@@ -113,7 +113,6 @@ public class PhoneVerificationFragment extends Fragment {
 
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onStartVerification(String phoneNumber);
     }
 }

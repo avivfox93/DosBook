@@ -159,12 +159,13 @@ public class VerificationActivity extends AppCompatActivity implements
     private void onTokenReady(String token){
         loadingDialog.show();
         Verification.verifyToken(token,(err, result) -> {
-            loadingDialog.dismiss();
             if(err) {
-                Toast.makeText(this,"Unknown Error!, please try again",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"Please wait",Toast.LENGTH_SHORT).show();
                 Log.e("Verification","error!!! " + result.toString());
+                onTokenReady(token);
                 return;
             }
+            loadingDialog.dismiss();
             codeVerificationFragment.stop();
 //            Log.e("JSON",result.toString());
             try {
